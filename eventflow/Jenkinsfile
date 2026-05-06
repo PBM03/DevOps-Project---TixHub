@@ -36,10 +36,10 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                bat 'kubectl apply -f eventflow/k8s/'
-            }
-        }
+        // stage('Deploy to Kubernetes') {
+        //     steps {
+        //         bat 'kubectl apply -f eventflow/k8s/'
+        //     }
+        // }
     }
 }
