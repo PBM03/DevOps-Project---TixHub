@@ -5,6 +5,10 @@ pipeline {
         nodejs 'NodeJS 20'
     }
 
+    environment {
+        NODE_ENV = 'test'
+    }
+
     stages {
 
         stage('Install Backend Dependencies') {
