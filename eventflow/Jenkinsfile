@@ -7,15 +7,9 @@ pipeline {
 
     stages {
 
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/PBM03/DevOps-Project---TixHub.git'
-            }
-        }
-
         stage('Install Backend Dependencies') {
             steps {
-                dir('backend') {
+                dir('eventflow/backend') {
                     bat 'npm install'
                 }
             }
@@ -23,7 +17,7 @@ pipeline {
 
         stage('Run Backend Tests') {
             steps {
-                dir('backend') {
+                dir('eventflow/backend') {
                     bat 'npm test'
                 }
             }
@@ -32,15 +26,15 @@ pipeline {
         stage('Build Docker Images') {
             steps {
 
-                bat 'docker build -t eventflow-backend ./backend'
+                bat 'docker build -t eventflow-backend ./eventflow/backend'
 
-                bat 'docker build -t eventflow-frontend ./frontend'
+                bat 'docker build -t eventflow-frontend ./eventflow/frontend'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                bat 'kubectl apply -f k8s/'
+                bat 'kubectl apply -f eventflow/k8s/'
             }
         }
     }
