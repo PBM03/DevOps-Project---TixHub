@@ -27,6 +27,24 @@ pipeline {
             }
         }
 
+        stage('SonarQube Analysis') {
+            steps {
+
+                script {
+
+                    def scannerHome = tool 'SonarScanner'
+
+                    withSonarQubeEnv('SonarQube') {
+
+                        dir('eventflow/backend') {
+
+                            bat "${scannerHome}\\bin\\sonar-scanner.bat"
+                        }
+                    }
+                }
+            }
+        }
+
         stage('Build Docker Images') {
             steps {
 
