@@ -21,7 +21,7 @@ connectDB();
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: process.env.CLIENT_URL || 'http://localhost:8080',
   credentials: true,
 }));
 app.use(express.json());
@@ -34,8 +34,10 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Server is running' });
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "Server Running"
+  });
 });
 
 // Error handler

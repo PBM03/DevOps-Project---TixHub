@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'NodeJS 20'
+    }
+
+    stages {
+
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/PBM03/DevOps-Project---TixHub.git'
+            }
+        }
+
+        stage('Install Backend Dependencies') {
+            steps {
+                dir('backend') {
+                    bat 'npm install'
+                }
+            }
+        }
+
+        stage('Run Backend Tests') {
+            steps {
+                dir('backend') {
+                    bat 'npm test'
+                }
+            }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+
+                bat 'docker build -t eventflow-backend ./backend'
+
+                bat 'docker build -t eventflow-frontend ./frontend'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                bat 'kubectl apply -f k8s/'
+            }
+        }
+    }
+}
