@@ -38,7 +38,7 @@ export const Header = () => {
             <Ticket className="size-5 text-primary-foreground" />
           </div>
           <span className="font-display text-xl font-bold tracking-tight">
-            Tix<span className="gradient-text">Hub</span>
+            <span className="gradient-text">Tix</span>Hub
           </span>
         </Link>
 
